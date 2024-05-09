@@ -13,8 +13,6 @@ import { UserController, PostController, CommentController } from './controllers
 
 import { handleValidationErrors, checkAuth } from './utils/index.js';
 
-console.log(process.env.MONGODB_ADDRESS);
-
 mongoose.connect(process.env.MONGODB_ADDRESS)
     .then(() => console.log('DB ok'))
     .catch((error) => console.log('DB error', error))
@@ -38,11 +36,14 @@ const storage = multer.diskStorage(
 const upload = multer({ storage });
 
 app.use(express.json());
+app.use(express.static('public'))
 app.use(cors());
 app.use('/uploads', express.static('uploads'));
 
 
-app.get("/", (req, res) => res.send("Express on Vercel"));
+app.get('/', (req, res) => {
+    res.sendFile('index.html', { root: path.join(__dirname, 'public') });
+})
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login);
 app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
 app.get('/auth/me', checkAuth, UserController.getMe);
