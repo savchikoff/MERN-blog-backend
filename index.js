@@ -44,6 +44,13 @@ app.use('/uploads', express.static('uploads'));
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: path.join(__dirname, 'public') });
 })
+
+app.get('/about', (req, res) => {
+    res.json({
+        message: "Про меня!"
+    })
+})
+
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login);
 app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
 app.get('/auth/me', checkAuth, UserController.getMe);
