@@ -8,10 +8,10 @@ import cors from 'cors';
 dotenv.config();
 
 
-import { registerValidation, loginValidation, postCreateValidation, commentCreateValidation } from '../validations.js';
-import { UserController, PostController, CommentController } from '../controllers/index.js';
+import { registerValidation, loginValidation, postCreateValidation, commentCreateValidation } from './validations.js';
+import { UserController, PostController, CommentController } from './controllers/index.js';
 
-import { handleValidationErrors, checkAuth } from '../utils/index.js';
+import { handleValidationErrors, checkAuth } from './utils/index.js';
 
 console.log(process.env.MONGODB_ADDRESS);
 
